@@ -99,16 +99,16 @@ var gtaLocator = (function GtaLocator() {
         readme: "Dieses Objekt enthält 'öffentliche' Teile des Moduls.",
 
         updateLocation: function () {
-            var onsuccess = function(){
 
-            };
-
-            var onerror = function(){
-              alert("error");
-            };
-            tryLocate(onsuccess, onerror);
-
-            // TODO
+            tryLocate(function(position){
+              document.getElementById('input_long').value =getLongitude(position);
+              document.getElementById('input_lat').value =getLatitude(position);
+            }, function(error){
+              alert("Error");
+            });
+          }
+        };
+      })();
 
 /**
  * $(document).ready wartet, bis die Seite komplett geladen wurde. Dann wird die
@@ -116,6 +116,7 @@ var gtaLocator = (function GtaLocator() {
  * des Skripts.
  */
 $(document).ready(function () {
+
     gtaLocator.updateLocation();
-    // TODO Hier den Aufruf für updateLocation einfügen
+
 });
