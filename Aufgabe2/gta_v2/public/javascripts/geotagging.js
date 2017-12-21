@@ -103,6 +103,9 @@ var gtaLocator = (function GtaLocator() {
             tryLocate(function(position){
               document.getElementById('input_long').value =getLongitude(position);
               document.getElementById('input_lat').value =getLatitude(position);
+
+              document.getElementById('input_long_hidden').value =getLongitude(position);
+              document.getElementById('input_lat_hidden').value =getLatitude(position);
             }, function(error){
               alert("Error");
             });
