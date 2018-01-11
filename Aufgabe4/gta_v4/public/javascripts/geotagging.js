@@ -60,7 +60,7 @@ var gtaLocator = (function GtaLocator() {
 
 
     // Hier Google Maps API Key eintragen
-    var apiKey = "YOUR API KEY HERE";
+    var apiKey = "AIzaSyDepQ_4bNdGS_LITHLadAIlAOyLpDHn5S8";
 
     /**
      * Funktion erzeugt eine URL, die auf die Karte verweist.
@@ -74,10 +74,12 @@ var gtaLocator = (function GtaLocator() {
     var getLocationMapSrc = function (lat, lon, tags, zoom) {
         zoom = typeof zoom !== 'undefined' ? zoom : 10;
 
-        if (apiKey === "YOUR API KEY HERE") {
+        if (apiKey === "AIzaSyDepQ_4bNdGS_LITHLadAIlAOyLpDHn5S8") {
             console.log("No API key provided.");
             return "images/mapview.jpg";
         }
+
+
 
         var tagList = "";
         if (typeof tags !== 'undefined') tags.forEach(function (tag) {
@@ -150,6 +152,13 @@ $(document).ready(function () {
       request.send(parsed);
       setResults(request)
     })
+
+var map = document.getElementById('result-img');
+map.src = getLocationMapSrc(49,8, 'undefined' ,10);
+
+
+
+
     $('#applybutton').click(function(){
       var searchterm = document.getElementById('input_searchterm').value;
       var request=new XMLHttpRequest();
