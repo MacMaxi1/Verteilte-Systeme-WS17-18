@@ -102,10 +102,17 @@ var gtaLocator = (function GtaLocator() {
         updateLocation: function () {
           var long = document.getElementById('input_long');
           var lat = document.getElementById('input_lat');
+          var Long1 = document.getElementById('input_long_hidden');
+          var lat1 = document.getElementById('input_lat_hidden');
+
           if(long.value === '' || lat.value === ''){
             tryLocate(function (position) {
               long.value = getLongitude(position) ;
               lat.value = getLatitude(position) ;
+              long1.value = getLongitude(position) ;
+              lat1.value = getLatitude(position) ;
+
+
             }, function (error) {
                 alert(error);
             });
