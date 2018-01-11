@@ -17,6 +17,7 @@ var express = require('express');
 var app;
 app = express();
 app.use(logger('dev'));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
@@ -92,6 +93,8 @@ app.get('/', function(req, res) {
 
 // TODO: CODE ERGÄNZEN START
 app.post('/tagging', function(req, res) {
+
+  console.log(req.body);
   const body = req.body;
   const tagObj = new GeoTag(body.latitude, body.longitude, body.name, body.hashtag);
   geotags.push(tagObj);
@@ -130,6 +133,25 @@ app.post('/discovery', function(req, res) {
       tagObj: {},
       searchterm : name
   });
+});
+app.get('/geotags', function(req, res) {
+  const name = req.query.searchterm;
+  let searchResults = [];
+  if(name !== undefined){
+    geotags.forEach(function(el){
+      if(el.name.indexOf(name) > -1){
+        searchResults.push(el);
+      }
+    })
+  }
+  res.status(200).send(searchResults);
+});
+
+app.post('/geotags', function(req, res) {
+  const body = req.body;
+  const tagObj = new GeoTag(body.latitude, body.longitude, body.name, body.hashtag);
+  geotags.push(tagObj);
+  res.status(201).send(geotags);
 });
 /**
  * Setze Port und speichere in Express.

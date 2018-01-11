@@ -34,11 +34,11 @@
 	  				<form id="tag-form" action="/tagging" method="post">
 
 						<label for="input_lat">Latitude:</label>
-	  				<br><input id= "input_lat" type ="text" value="<% if (locals.latitude) {%><=tagObj.latitude%><%}  %>" name ="latitude" placeholder = "0.12345"><br>
+	  				<br><input id= "input_lat" type ="number" value="<%= tagObj.latitude  %>" name ="latitude" placeholder = "0.12345"><br>
 	  				<br>
 
 	  				<label for="input_long">Longitude:</label>
-	  				<br><input id= "input_long" type ="text" value="<% if (locals.longitude) {%><=tagObj.longitude%><%}   %>" name ="longitude" placeholder = "0.12345"><br>
+	  				<br><input id= "input_long" type ="number" value="<%= tagObj.longitude  %>" name ="longitude" placeholder = "0.12345"><br>
 	  				<br>
 
 	  				<label for="input_name">Name:</label>
@@ -49,7 +49,7 @@
 	  				<br><input id= "input_hashtag" type ="text" name ="hashtag" placeholder = "#GeoTag"><br>
 	  				<br>
 
-	  				<button type="submit">Submit</button>
+	  				<button id="eingabebutton"type="button">Submit</button>
 
 	  				</form>
 	  				</fieldset>
@@ -68,16 +68,10 @@
 						<form id="filter-form" action="/discovery" method="post">
 
 						<label for="input_searchterm">Searchterm:</label>
-
-						<% if (typeof searchterm !== "undefined") { %>
-						<input id= "input_searchterm" type="text" value="<%= searchterm %>" name="searchterm" placeholder="Searchterm">
-						<% } else { %>
 						<input id= "input_searchterm" type="text" name="searchterm" placeholder="Searchterm">
-						<% }; %>
+						<button id="applybutton"type="button">Apply</button>
 
-						<button type="submit">Apply</button>
-
-						<button type="submit">Remove</button>
+						<button id="removebutton"type="button">Remove</button>
 
 						</form>
 						</fieldset>
