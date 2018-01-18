@@ -165,8 +165,8 @@ $(document).ready(function () {
         name:name,
         hashtag:hashtag
       })
-      request.send(parsed);
       setResults(request)
+      request.send(parsed);
     })
 
 

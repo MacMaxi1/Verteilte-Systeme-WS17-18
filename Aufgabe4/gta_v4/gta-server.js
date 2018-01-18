@@ -62,6 +62,11 @@ app.set('view engine', 'ejs');
 
 // TODO: CODE ERGÄNZEN
 
+
+
+
+
+
 /**
  * Route mit Pfad '/' für HTTP 'GET' Requests.
  * (http://expressjs.com/de/4x/api.html#app.get.method)
@@ -92,17 +97,23 @@ app.get('/', function(req, res) {
  */
 
 // TODO: CODE ERGÄNZEN START
+
+
+
+//hier code cooll
 app.post('/tagging', function(req, res) {
 
   console.log(req.body);
   const body = req.body;
   const tagObj = new GeoTag(body.latitude, body.longitude, body.name, body.hashtag);
   geotags.push(tagObj);
+
   res.render('gta', {
       taglist: geotags,
       tagObj: tagObj
   });
 });
+
 
 /**
  * Route mit Pfad '/discovery' für HTTP 'POST' Requests.
@@ -120,14 +131,23 @@ app.post('/tagging', function(req, res) {
 app.post('/discovery', function(req, res) {
   const body = req.body;
   const name = body.searchterm;
-  let searchResults = [];
-  if(name !== undefined){
-    geotags.forEach(function(el){
-      if(el.name.indexOf(name) > -1){
-        searchResults.push(el);
-      }
-    })
-  }
+    let searchResults = [];
+    if(name !== undefined){
+      geotags.forEach(function(el){
+        if(el.name.indexOf(name) > -1){
+          searchResults.push(el);
+        }
+      })
+    }
+
+
+/*
+  const lat = body.latitude;
+  const long = body.longitude;
+  GeoTagModul.searchName(lat,long,name);
+*/
+
+  //Ejs-Template wird mit GeoTag Objekten gerendert
   res.render('gta', {
       taglist: searchResults,
       tagObj: {},
@@ -146,7 +166,7 @@ app.get('/geotags', function(req, res) {
   }
   res.status(200).send(searchResults);
 });
-
+//Erstellung der GeoTag Objekte
 app.post('/geotags', function(req, res) {
   const body = req.body;
   const tagObj = new GeoTag(body.latitude, body.longitude, body.name, body.hashtag);
