@@ -60,7 +60,7 @@ var gtaLocator = (function GtaLocator() {
 
 
     // Hier Google Maps API Key eintragen
-    var apiKey = "AIzaSyDepQ_4bNdGS_LITHLadAIlAOyLpDHn5S8";
+    var apiKey = "AIzaSyAtISVTQEttOZ5or3QRGJk7rbQSKZ24Goo";
 
     /**
      * Funktion erzeugt eine URL, die auf die Karte verweist.
@@ -74,7 +74,7 @@ var gtaLocator = (function GtaLocator() {
     var getLocationMapSrc = function (lat, lon, tags, zoom) {
         zoom = typeof zoom !== 'undefined' ? zoom : 10;
 
-        if (apiKey === "AIzaSyDepQ_4bNdGS_LITHLadAIlAOyLpDHn5S8") {
+        if (apiKey === "YOUR API KEY HERE") {
             console.log("No API key provided.");
             return "images/mapview.jpg";
         }
@@ -102,16 +102,26 @@ var gtaLocator = (function GtaLocator() {
         readme: "Dieses Objekt enthält 'öffentliche' Teile des Moduls.",
 
         updateLocation: function () {
-          var long = document.getElementById('input_long');
-          var lat = document.getElementById('input_lat');
-          var Long1 = document.getElementById('input_long_hidden');
-          var lat1 = document.getElementById('input_lat_hidden');
+           var long = document.getElementById('input_long');
+           var lat = document.getElementById('input_lat');
+          //var Long1 = document.getElementById('input_long_hidden');
+          //var lat1 = document.getElementById('input_lat_hidden');
+
+
+
           if(long.value === '' || lat.value === ''){
             tryLocate(function (position) {
               long.value = getLongitude(position) ;
               lat.value = getLatitude(position) ;
-              long1.value = getLongitude(position) ;
-              lat1.value = getLatitude(position) ;
+
+              var p_url = getLocationMapSrc(lat.value, long.value, undefined, 16);
+              $("#result-img").attr("src",p_url);
+
+              //long1.value = getLongitude(position) ;
+              //lat1.value = getLatitude(position) ;
+
+
+
             }, function (error) {
                 alert(error);
             });
@@ -119,7 +129,12 @@ var gtaLocator = (function GtaLocator() {
             console.log('Koordinaten sind schon gesetzt!')
           }
 
+          //Hier Map Code
+
+
+
             // TODO Hier Inhalt der Funktion "update" ergänzen
+
         }
 
     }; // ... Ende öffentlicher Teil
@@ -133,7 +148,8 @@ var gtaLocator = (function GtaLocator() {
 $(document).ready(function () {
 
     gtaLocator.updateLocation();
-    // TODO Hier den Aufruf für updateLocation einfügen
+
+// TODO Hier den Aufruf für updateLocation einfügen
 
     $('#eingabebutton').click(function(){
       var long = document.getElementById('input_long').value;
@@ -153,8 +169,7 @@ $(document).ready(function () {
       setResults(request)
     })
 
-var map = document.getElementById('result-img');
-map.src = getLocationMapSrc(49,8, 'undefined' ,10);
+
 
 
 
