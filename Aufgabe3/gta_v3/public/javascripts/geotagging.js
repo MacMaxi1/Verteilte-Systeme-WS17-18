@@ -60,7 +60,7 @@ var gtaLocator = (function GtaLocator() {
 
 
     // Hier Google Maps API Key eintragen
-    var apiKey = "YOUR API KEY HERE";
+    var apiKey = "AIzaSyAtISVTQEttOZ5or3QRGJk7rbQSKZ24Goo";
 
     /**
      * Funktion erzeugt eine URL, die auf die Karte verweist.
@@ -102,17 +102,16 @@ var gtaLocator = (function GtaLocator() {
         updateLocation: function () {
           var long = document.getElementById('input_long');
           var lat = document.getElementById('input_lat');
-          var Long1 = document.getElementById('input_long_hidden');
-          var lat1 = document.getElementById('input_lat_hidden');
-
-          if(long.value === '' || lat.value === ''){
+          var hiddenlong = document.getElementById('filter-form-longitude');
+          var hiddenlat = document.getElementById('filter-form-latitude');
+          if(long.value === undefined || lat.value === ''){
             tryLocate(function (position) {
               long.value = getLongitude(position) ;
               lat.value = getLatitude(position) ;
-              long1.value = getLongitude(position) ;
-              lat1.value = getLatitude(position) ;
-
-
+              hiddenlong.value = getLongitude(position) ;
+              hiddenlat.value = getLatitude(position) ;
+              var p_url = getLocationMapSrc(lat.value, long.value, undefined, 16);
+              $("#result-img").attr("src",p_url);
             }, function (error) {
                 alert(error);
             });

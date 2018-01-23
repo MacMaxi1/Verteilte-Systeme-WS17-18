@@ -79,8 +79,6 @@ var gtaLocator = (function GtaLocator() {
             return "images/mapview.jpg";
         }
 
-
-
         var tagList = "";
         if (typeof tags !== 'undefined') tags.forEach(function (tag) {
             tagList += "&markers=%7Clabel:" + tag.name
@@ -102,25 +100,18 @@ var gtaLocator = (function GtaLocator() {
         readme: "Dieses Objekt enthält 'öffentliche' Teile des Moduls.",
 
         updateLocation: function () {
-           var long = document.getElementById('input_long');
-           var lat = document.getElementById('input_lat');
-          //var Long1 = document.getElementById('input_long_hidden');
-          //var lat1 = document.getElementById('input_lat_hidden');
-
-
-
-          if(long.value === '' || lat.value === ''){
+          var long = document.getElementById('input_long');
+          var lat = document.getElementById('input_lat');
+          var hiddenlong = document.getElementById('filter-form-longitude');
+          var hiddenlat = document.getElementById('filter-form-latitude');
+          if(long.value === undefined || lat.value === ''){
             tryLocate(function (position) {
               long.value = getLongitude(position) ;
               lat.value = getLatitude(position) ;
-
+              hiddenlong.value = getLongitude(position) ;
+              hiddenlat.value = getLatitude(position) ;
               var p_url = getLocationMapSrc(lat.value, long.value, undefined, 16);
               $("#result-img").attr("src",p_url);
-
-              //long1.value = getLongitude(position) ;
-              //lat1.value = getLatitude(position) ;
-
-
 
             }, function (error) {
                 alert(error);
@@ -129,12 +120,7 @@ var gtaLocator = (function GtaLocator() {
             console.log('Koordinaten sind schon gesetzt!')
           }
 
-          //Hier Map Code
-
-
-
             // TODO Hier Inhalt der Funktion "update" ergänzen
-
         }
 
     }; // ... Ende öffentlicher Teil
@@ -148,14 +134,12 @@ var gtaLocator = (function GtaLocator() {
 $(document).ready(function () {
 
     gtaLocator.updateLocation();
-
-// TODO Hier den Aufruf für updateLocation einfügen
-
     $('#eingabebutton').click(function(){
       var long = document.getElementById('input_long').value;
       var lat = document.getElementById('input_lat').value;
       var name = document.getElementById('input_name').value;
       var hashtag = document.getElementById('input_hashtag').value;
+      console.log(long);
       var request=new XMLHttpRequest();
       request.open("post","http://localhost:3000/geotags");
       request.setRequestHeader("Content-type","application/json");
@@ -167,35 +151,42 @@ $(document).ready(function () {
       })
       setResults(request)
       request.send(parsed);
+            console.log(request);
     })
-
-
-
-
-
-
     $('#applybutton').click(function(){
       var searchterm = document.getElementById('input_searchterm').value;
+      var long = document.getElementById('input_long').value;
+      var lat = document.getElementById('input_lat').value;
       var request=new XMLHttpRequest();
-      request.open("get","http://localhost:3000/geotags?searchterm="+searchterm);
+      request.open("get","http://localhost:3000/geotags?searchterm="+searchterm+"&latitude="+lat+"&longitude="+long);
       request.send();
       setResults(request)
     })
+    /*
+    $('#removebutton').click(function(){
+      var searchterm = document.getElementById('input_searchterm').value;
+      var request=new XMLHttpRequest();
+      request.open("get","http://localhost:3000/geotags?searchterm="+'');
+      request.send();
 
+      setResults(request)
+    })
+    */
     $('#removebutton').click(function(){
       var searchterm = " ";
       var request=new XMLHttpRequest();
       request.open("get","http://localhost:3000/geotags?searchterm="+searchterm);
       request.send();
+
       setResults(request)
     })
-
 });
 
 function setResults (request){
     request.onreadystatechange = function(){
       if(request.readyState === 4){
-        var results = JSON.parse(request.response)
+        console.log(request.response);
+        var results = JSON.parse(request.response);
         $('#results').empty();
         results.forEach(function(el){
           $('#results').append('<li>'+el.name+'('+ el.latitude+','+el.longitude+')'+el.hashtag+'</li>')

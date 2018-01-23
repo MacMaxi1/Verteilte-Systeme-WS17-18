@@ -17,7 +17,8 @@
 						alt="an image of a map and location">
 					<h1>GeoTagApp</h1>
 					<nav>
-						<a href="/">Home</a> | <a href="#">About</a> | <a href="#">Help</a>
+					<a href="/">Home</a> | <a href="#">About</a> | <a
+						href="#">Help</a>
 					</nav>
 				</div>
 
@@ -33,12 +34,13 @@
 	  				<form id="tag-form" action="/tagging" method="post">
 
 						<label for="input_lat">Latitude:</label>
-	  				<br><input id= "input_lat" type ="text" value="<% if (locals.latitude) {%><=tagObj.latitude%><%}  %>" name ="latitude" placeholder = "0.12345"><br>
-	  				<br>
 
+							<br><input id= "input_lat" type ="number" step=any value="<%= tagObj.latitude  %>"required name ="latitude" placeholder = "0.12345"><br>
+							<br>
 	  				<label for="input_long">Longitude:</label>
-	  				<br><input id= "input_long" type ="text" value="<% if (locals.longitude) {%><=tagObj.longitude%><%}   %>" name ="longitude" placeholder = "0.12345"><br>
-	  				<br>
+
+							<br><input id= "input_long" type ="number" step=any value="<%= tagObj.longitude  %>"required name ="longitude" placeholder = "0.12345"><br>
+		  				<br>
 
 	  				<label for="input_name">Name:</label>
 	  				<br><input id= "input_name" type ="text" name ="name" placeholder = "Name"><br>
@@ -48,7 +50,7 @@
 	  				<br><input id= "input_hashtag" type ="text" name ="hashtag" placeholder = "#GeoTag"><br>
 	  				<br>
 
-	  				<button id="eingabebutton"type="button">Submit</button>
+	  				<button id="eingabebutton" type="button">Submit</button>
 
 	  				</form>
 	  				</fieldset>
@@ -67,16 +69,27 @@
 						<form id="filter-form" action="/discovery" method="post">
 
 						<label for="input_searchterm">Searchterm:</label>
+						<% if (typeof hiddenlat !== "undefined") { %>
+						<input id="filter-form-latitude" name="hiddenlatitude"value="<%= hiddenlat %>" type="hidden" />
+						<% } else { %>
+												<input id="filter-form-latitude" name="hiddenlatitude"value="" type="hidden" />
+						<% }; %>
+
+						<% if (typeof hiddenlong !== "undefined") { %>
+					<input id="filter-form-longitude" name="hiddenlongitude" value="<%= hiddenlong %>" type="hidden"  />
+						<% } else { %>
+						<input id="filter-form-longitude" name="hiddenlongitude" value="" type="hidden" />
+						<% }; %>
+
+						<% if (typeof searchterm !== "undefined") { %>
+						<input id= "input_searchterm" type="text" value="<%= searchterm %>" name="searchterm" placeholder="Searchterm">
+						<% } else { %>
 						<input id= "input_searchterm" type="text" name="searchterm" placeholder="Searchterm">
+						<% }; %>
 
-						<input id= "input_lat_hidden" type = "hidden" name ="latitude" placeholder = "0.12345"><br>
-						<input id= "input_long_hidden" type ="hidden" name ="longitude" placeholder = "0.12345"><br>
+						<button id="applybutton" type="button">Apply</button>
 
-
-
-						<button id="applybutton"type="button">Apply</button>
-
-						<button id="removebutton"type="button">Remove</button>
+						<button id="removebutton" type="button">Remove</button>
 
 						</form>
 						</fieldset>
@@ -93,13 +106,11 @@
 				</div>
 
 				<div class="col-4">
-
 					<img id="result-img"
 						src="./images/mapview.jpg"
 						class="googlemap"
 						alt="a map with locations"/>
 
-						
 					<div class="caption">Result map</div>
 				</div>
 			</main>
