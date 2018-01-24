@@ -140,6 +140,8 @@ $(document).ready(function () {
       var name = document.getElementById('input_name').value;
       var hashtag = document.getElementById('input_hashtag').value;
       console.log(long);
+
+      if(hashtag!==''&&long!==''&&lat!==''&&name!==''){
       var request=new XMLHttpRequest();
       request.open("post","http://localhost:3000/geotags");
       request.setRequestHeader("Content-type","application/json");
@@ -152,6 +154,10 @@ $(document).ready(function () {
       setResults(request)
       request.send(parsed);
             console.log(request);
+          }
+          else{
+            alert("Füllen Sie bitte alle Felder aus.");
+          }
     })
     $('#applybutton').click(function(){
       var searchterm = document.getElementById('input_searchterm').value;
@@ -162,16 +168,18 @@ $(document).ready(function () {
       request.send();
       setResults(request)
     })
-    /*
+
     $('#removebutton').click(function(){
       var searchterm = document.getElementById('input_searchterm').value;
+      var long = document.getElementById('input_long').value;
+      var lat = document.getElementById('input_lat').value;
       var request=new XMLHttpRequest();
-      request.open("get","http://localhost:3000/geotags?searchterm="+'');
+      request.open("get","http://localhost:3000/geotags?searchterm="+''+"&latitude="+lat+"&longitude="+long);
       request.send();
 
       setResults(request)
     })
-    */
+    /*
     $('#removebutton').click(function(){
       var searchterm = " ";
       var request=new XMLHttpRequest();
@@ -180,6 +188,7 @@ $(document).ready(function () {
 
       setResults(request)
     })
+    */
 });
 
 function setResults (request){

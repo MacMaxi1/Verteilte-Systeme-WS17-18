@@ -200,8 +200,8 @@ app.post('/discovery', function(req, res) {
  app.post('/geotags', function(req, res) {
 
    GeoTagModul.add(req.body.latitude, req.body.longitude, req.body.name, req.body.hashtag);
-   console.log(geotags);
-   res.status(201).send(geotags);
+   const results = GeoTagModul.searchRadius(req.body.latitude,req.body.longitude,0.1);
+   res.status(201).send(results);
  });
 
 var port = 3000;

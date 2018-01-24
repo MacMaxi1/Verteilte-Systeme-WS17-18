@@ -69,6 +69,7 @@ li{
 #input_name{
   width: 150px;
   height: 25px;
+  required;
 }
 #input_hashtag{
   width: 150px;
