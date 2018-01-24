@@ -175,11 +175,13 @@ app.post('/discovery', function(req, res) {
   const body = req.body;
   const name = body.searchterm;
   result=GeoTagModul.searchName(body.hiddenlatitude, body.hiddenlongitude,name);
-
+let tagObj={};
+tagObj.latitude=req.body.hiddenlatitude;
+tagObj.longitude=req.body.hiddenlongitude;
 
   res.render('gta', {
       taglist: result,
-      tagObj: {},
+      tagObj: tagObj,
       searchterm : name,
       hiddenlat:req.body.hiddenlatitude,
       hiddenlong:req.body.hiddenlongitude
