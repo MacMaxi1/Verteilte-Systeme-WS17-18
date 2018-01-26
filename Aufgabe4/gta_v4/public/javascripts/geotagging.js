@@ -134,6 +134,7 @@ var gtaLocator = (function GtaLocator() {
 $(document).ready(function () {
 
     gtaLocator.updateLocation();
+  //  Mit Submit werden Long, Lat , ... deklariert ( erstellt)
     $('#eingabebutton').click(function(){
       var long = document.getElementById('input_long').value;
       var lat = document.getElementById('input_lat').value;
@@ -142,23 +143,28 @@ $(document).ready(function () {
       console.log(long);
 
       if(hashtag!==''&&long!==''&&lat!==''&&name!==''){
+        // Request wird erstellt um Long; lat, ... an Seite zu schicken (mit post)
       var request=new XMLHttpRequest();
       request.open("post","http://localhost:3000/geotags");
       request.setRequestHeader("Content-type","application/json");
+      // Schicken der Long, lat, ... im Json format
       var parsed = JSON.stringify({
         longitude:long,
         latitude:lat,
         name:name,
         hashtag:hashtag
       })
+
       setResults(request)
       request.send(parsed);
             console.log(request);
           }
+          // Wenn Felder nicht ausgefüllt schicke Nachricht. Wenn Felder leer sind sendet er auch kein Request.
           else{
             alert("Füllen Sie bitte alle Felder aus.");
           }
     })
+    // Sucht Name aus davor erstellten Liste
     $('#applybutton').click(function(){
       var searchterm = document.getElementById('input_searchterm').value;
       var long = document.getElementById('input_long').value;
@@ -169,6 +175,7 @@ $(document).ready(function () {
       setResults(request)
     })
 
+// Kann damit Sachen löschen. Muss in 4 nicht vorhanden sein.
     $('#removebutton').click(function(){
       var searchterm = document.getElementById('input_searchterm').value;
       var long = document.getElementById('input_long').value;
@@ -179,7 +186,7 @@ $(document).ready(function () {
 
       setResults(request)
     })
-    /*
+    /* alt
     $('#removebutton').click(function(){
       var searchterm = " ";
       var request=new XMLHttpRequest();
@@ -190,13 +197,14 @@ $(document).ready(function () {
     })
     */
 });
-
+// Schecken ob Request zurückgekommen ist. Setzt darauf die results und Liste wird erweiter.
 function setResults (request){
     request.onreadystatechange = function(){
       if(request.readyState === 4){
         console.log(request.response);
         var results = JSON.parse(request.response);
         $('#results').empty();
+        // Liste erstellen mit long, lat, ...
         results.forEach(function(el){
           $('#results').append('<li>'+el.name+'('+ el.latitude+','+el.longitude+')'+el.hashtag+'</li>')
         })

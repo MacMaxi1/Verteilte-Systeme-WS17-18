@@ -148,7 +148,7 @@ app.get('/', function(req, res) {
  * Die Objekte liegen in einem Standard Radius um die Koordinate (lat, lon).
  */
 
-// TODO: CODE ERGÄNZEN START
+// Wenn button ausgeführt wird, kommt man auf die /tagging Seite.
 app.post('/tagging', function(req, res) {
 const tagObj=GeoTagModul.add(req.body.latitude, req.body.longitude, req.body.name, req.body.hashtag);
   res.render('gta', {
@@ -171,7 +171,7 @@ const tagObj=GeoTagModul.add(req.body.latitude, req.body.longitude, req.body.nam
  * Falls 'term' vorhanden ist, wird nach Suchwort gefiltert.
  */
 
-// TODO: CODE ERGÄNZEN
+// Wenn button ausgeführt wird, kommt man auf die /discovery Seite.
 app.post('/discovery', function(req, res) {
   const body = req.body;
   const name = body.searchterm;
@@ -190,6 +190,12 @@ app.post('/discovery', function(req, res) {
 /**
  * Setze Port und speichere in Express.
  */
+ // Pfad zu GeoTag Ressource
+app.get('/geotags/:geotagID', function(req, res) {
+  res.status(200).send(geotags[req.params.geotagID]);
+});
+
+// Suchfunktion nach Name aus Liste
  app.get('/geotags', function(req, res) {
    const name = req.query.searchterm;
  let result=GeoTagModul.searchName(req.query.latitude,req.query.longitude,name);
@@ -197,8 +203,8 @@ app.post('/discovery', function(req, res) {
    res.status(200).send(result);
  });
 
+// Erstellen eines neuen Geotags aus Daten ( Long, Lat, ...)
  app.post('/geotags', function(req, res) {
-
    GeoTagModul.add(req.body.latitude, req.body.longitude, req.body.name, req.body.hashtag);
    const results = GeoTagModul.searchRadius(req.body.latitude,req.body.longitude,0.1);
    res.status(201).send(results);

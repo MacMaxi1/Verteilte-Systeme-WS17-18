@@ -50,6 +50,7 @@
 	  				<br><input id= "input_hashtag" type ="text" name ="hashtag" placeholder = "#GeoTag" required><br>
 	  				<br>
 
+						<!-- Von Input in Button -->
 	  				<button id="eingabebutton" type="button">Submit</button>
 
 	  				</form>
@@ -81,6 +82,7 @@
 						<input id="filter-form-longitude" name="hiddenlongitude" value="" type="hidden" />
 						<% }; %>
 
+						<!-- Die if(...) checkt dass im Searchterm was drin steht. Wenn was drin steht setzt er value, sonst setzt er kein value=undefined-->
 						<% if (typeof searchterm !== "undefined") { %>
 						<input id= "input_searchterm" type="text" value="<%= searchterm %>" name="searchterm" placeholder="Searchterm">
 						<% } else { %>
@@ -99,6 +101,7 @@
 
 				<div class="col-3">
 					<ul id="results">
+						<!-- Aus Aufgabenstellung -->
 						<% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
 							<li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
 						<% }); %>
