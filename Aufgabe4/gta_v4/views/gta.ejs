@@ -1,0 +1,134 @@
+
+	<!DOCTYPE html>
+	<html lang="en">
+
+		<head>
+			<meta charset="UTF-8">
+			<title>GeoTagApp</title>
+			<!-- ############### Link für Bilder müssen sperat hinzugefügt werden. -->
+			<link rel='stylesheet' href='./stylesheets/style.css'/>
+		</head>
+
+		<body>
+			<main>
+				<div class="header">
+					<img src="./images/location.png"
+						width="100"
+						alt="an image of a map and location">
+					<h1>GeoTagApp</h1>
+					<nav>
+					<a href="/">Home</a> | <a href="#">About</a> | <a
+						href="#">Help</a>
+					</nav>
+				</div>
+
+				<div class="row">
+
+				<div class="col-1">
+					<section class="tagging">
+	  				<h2>Tagging</h2>
+	  				<!-- ############### Aufgabe1a Form1 Start -->
+	  				<fieldset>
+	  				<legend>Enter new GeoTag</legend>
+
+	  				<form id="tag-form" action="/tagging" method="post">
+
+						<label for="input_lat">Latitude:</label>
+
+							<br><input id= "input_lat" type ="number" step=any value="<%= tagObj.latitude  %>"required name ="latitude" placeholder = "0.12345"><br>
+							<br>
+	  				<label for="input_long">Longitude:</label>
+
+							<br><input id= "input_long" type ="number" step=any value="<%= tagObj.longitude  %>"required name ="longitude" placeholder = "0.12345"><br>
+		  				<br>
+
+	  				<label for="input_name">Name:</label>
+	  				<br><input id= "input_name" type ="text" name ="name" placeholder = "Name" required><br>
+	  				<br>
+
+	  				<label for="input_hashtag">Hashtag:</label>
+	  				<br><input id= "input_hashtag" type ="text" name ="hashtag" placeholder = "#GeoTag" required><br>
+	  				<br>
+
+						<!-- Von Input in Button -->
+	  				<button id="eingabebutton" type="button">Submit</button>
+
+	  				</form>
+	  				</fieldset>
+	  				<!-- ############### Aufgabe1a Form1 Ende -->
+				</div>
+					</section>
+
+				<div class="col-2">
+					<section class="discovery">
+
+						<h2>Discovery</h2>
+						<!-- ############### Aufgabe1a Form2 Start -->
+						<fieldset>
+						<legend>Filter by Searchterm</legend>
+
+						<form id="filter-form" action="/discovery" method="post">
+
+						<label for="input_searchterm">Searchterm:</label>
+						<% if (typeof hiddenlat !== "undefined") { %>
+						<input id="filter-form-latitude" name="hiddenlatitude"value="<%= hiddenlat %>" type="hidden" />
+						<% } else { %>
+												<input id="filter-form-latitude" name="hiddenlatitude"value="" type="hidden" />
+						<% }; %>
+
+						<% if (typeof hiddenlong !== "undefined") { %>
+					<input id="filter-form-longitude" name="hiddenlongitude" value="<%= hiddenlong %>" type="hidden"  />
+						<% } else { %>
+						<input id="filter-form-longitude" name="hiddenlongitude" value="" type="hidden" />
+						<% }; %>
+
+						<!-- Die if(...) checkt dass im Searchterm was drin steht. Wenn was drin steht setzt er value, sonst setzt er kein value=undefined-->
+						<% if (typeof searchterm !== "undefined") { %>
+						<input id= "input_searchterm" type="text" value="<%= searchterm %>" name="searchterm" placeholder="Searchterm">
+						<% } else { %>
+						<input id= "input_searchterm" type="text" name="searchterm" placeholder="Searchterm">
+						<% }; %>
+
+						<button id="applybutton" type="button">Apply</button>
+
+						<button id="removebutton" type="button">Remove</button>
+
+						</form>
+						</fieldset>
+						<!-- ############### Aufgabe1a Form2 Ende -->
+					</section>
+				</div>
+
+				<div class="col-3">
+					<ul id="results">
+						<!-- Aus Aufgabenstellung -->
+						<% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
+							<li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
+						<% }); %>
+					</ul>
+				</div>
+
+				<div class="col-4">
+					<img id="result-img"
+						src="./images/mapview.jpg"
+						class="googlemap"
+						alt="a map with locations"/>
+
+					<div class="caption">Result map</div>
+				</div>
+			</main>
+			<footer>
+					<div class="footer">
+						<ul id="footer">
+							<span>2017 by LKIT</span>
+						</ul>
+					</div>
+			</footer>
+			<!-- Load JavaScripts
+			    ================================================== -->
+			    <!-- Placed at the end of the document so the pages load faster -->
+			    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+			    <script src="./javascripts/geotagging.js"></script>
+
+		</body>
+	</html>

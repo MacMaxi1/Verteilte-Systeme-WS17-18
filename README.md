@@ -34,4 +34,7 @@ Die Laborübungen umfassen dieses Semester vier Teilaufgaben:
 
 ## Beispiele
 Für einige weitere Vorlesungsthemen gibt es [praktische Code-Beispiele](Beispiele)
+<<<<<<< HEAD
 # test
+=======
+>>>>>>> 86891a927b2caac98ff44779bc8e49783bcf217c

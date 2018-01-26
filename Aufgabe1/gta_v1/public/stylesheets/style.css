@@ -1,0 +1,79 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+* {
+    box-sizing: border-box;
+}
+.header {
+	background-color: #DCDCDC;
+	color: #000000;
+	padding: 15px;
+}
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+		border: 0.5px solid white;
+}
+.col-1{
+  width: 25%;
+}
+.col-2 {
+  width: 75%;
+}
+.col-3 {
+  width: 37.5%;
+}
+
+li{
+  list-style-type: none;
+  margin: 2px;
+  padding: 2px;
+  background-color: #1E90FF;
+}
+.col-4 {
+  width: 37.5%;
+}
+.googlemap {
+    max-width: 100%;
+    height: auto;
+}
+.footer {
+  background-color: #DCDCDC;
+  color: #000000;
+  padding: 1px;
+}
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+        width: 100%;
+    }
+}
+#input_lat{
+  width: 150px;
+  height: 25px;
+}
+#input_long{
+  width: 150px;
+  height: 25px;
+}
+#input_name{
+  width: 150px;
+  height: 25px;
+}
+#input_hashtag{
+  width: 150px;
+  height: 25px;
+}
+#input_searchterm{
+  width: 150px;
+  height: 25px;
+}

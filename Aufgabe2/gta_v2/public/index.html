@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>GeoTagApp</title>
+		<!-- ############### Link für Bilder müssen sperat hinzugefügt werden. -->
+		<link rel='stylesheet' href='./stylesheets/style.css'/>
+	</head>
+
+	<body>
+		<main>
+			<div class="header">
+				<img src="./images/location.png"
+					width="100"
+					alt="an image of a map and location">
+				<h1>GeoTagApp</h1>
+				<nav>
+				<a href="#">About</a> | <a href="#">Help</a> | <a
+					href="/">Home</a>
+				</nav>
+			</div>
+
+			<div class="row">
+
+			<div class="col-1">
+				<section class="tagging">
+  				<h2>Tagging</h2>
+  				<!-- ############### Aufgabe1a Form1 Start -->
+  				<fieldset>
+  				<legend>Enter new GeoTag</legend>
+
+  				<form id="tag-form" action="/tagging" method="post">
+
+					<label for="input_lab">Latitude:</label>
+  				<br><input id= "input_lat" type ="number" name ="latitude" placeholder = "0.12345"><br>
+  				<br>
+
+  				<label for="input_long">Longitude:</label>
+  				<br><input id= "input_long" type ="number" name ="longitude" placeholder = "0.12345"><br>
+  				<br>
+
+  				<label for="input_name">Name:</label>
+  				<br><input id= "input_name" type ="text" name ="name" placeholder = "Name"><br>
+  				<br>
+
+  				<label for="input_hashtag">Hashtag:</label>
+  				<br><input id= "input_hashtag" type ="text" name ="hashtag" placeholder = "#GeoTag"><br>
+  				<br>
+
+  				<button type="submit">Submit</button>
+
+  				</form>
+  				</fieldset>
+  				<!-- ############### Aufgabe1a Form1 Ende -->
+
+			</div>
+				</section>
+
+			<div class="col-2">
+				<section class="discovery">
+
+					<h2>Discovery</h2>
+					<!-- ############### Aufgabe1a Form2 Start -->
+					<fieldset>
+					<legend>Filter by Searchterm</legend>
+
+					<form id="filter-form" action="/discovery" method="post">
+
+					<label for="input_searchterm">Searchterm:</label>
+					<input id= "input_searchterm" type ="text" name ="searchterm" placeholder = "Searchterm">
+
+					<input id= "input_lat_hidden" type = "hidden" name ="latitude" placeholder = "0.12345"><br>
+					<input id= "input_long_hidden" type ="hidden" name ="longitude" placeholder = "0.12345"><br>
+
+					<button type="submit">Apply</button>
+
+					<button type="submit">Remove</button>
+
+					</form>
+					</fieldset>
+					<!-- ############### Aufgabe1a Form2 Ende -->
+				</section>
+			</div>
+
+			<div class="col-3">
+				<ul id="results">
+					<li> Castle (49.01379, 8.404435) #sight</li>
+					<li> IWI (49.01379, 8.390071) #edu</li>
+				</ul>
+			</div>
+
+			<div class="col-4">
+				<img id="result-img"
+					src="./images/mapview.jpg"
+					class="googlemap"
+					alt="a map with locations"/>
+
+				<div class="caption">Result map</div>
+			</div>
+		</main>
+		<!-- Load JavaScripts
+		    ================================================== -->
+		    <!-- Placed at the end of the document so the pages load faster -->
+		    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		    <script src="./javascripts/geotagging.js"></script>
+
+	</body>
+
+	<footer>
+			<div class="footer">
+				<ul id="footer">
+					<span>2017 by LKIT</span>
+				</ul>
+			</div>
+	</footer>
+
+</html>
