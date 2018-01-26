@@ -38,6 +38,8 @@ app.set('view engine', 'ejs');
  * Konstruktor für GeoTag Objekte.
  * GeoTag Objekte sollen min. alle Felder des 'tag-form' Formulars aufnehmen.
  */
+
+ // Konstruktor zum erstellen von GeoTags
  class GeoTag {
    constructor(latitude, longitude, name, hashtag) {
      this.latitude = latitude;
@@ -47,9 +49,6 @@ app.set('view engine', 'ejs');
    }
  }
 
-
-// TODO: CODE ERGÄNZEN
-
 /**
  * Modul für 'In-Memory'-Speicherung von GeoTags mit folgenden Komponenten:
  * - Array als Speicher für Geo Tags.
@@ -58,10 +57,8 @@ app.set('view engine', 'ejs');
  * - Funktion zum hinzufügen eines Geo Tags.
  * - Funktion zum Löschen eines Geo Tags.
  */
+
  var GeoTagModul = ( function() {
-
-
-
 	 var isInRadius = function(lat1, long1, lat2, long2, radius) {
 		return radius >= Math.sqrt( Math.pow(lat1 - lat2, 2)
 								+ Math.pow(long1 - long2, 2)
@@ -78,12 +75,11 @@ app.set('view engine', 'ejs');
 					geoTagResult.push(geotags[i]);
            console.log("radius");
 				}
-
 			}
 			return geoTagResult;
 		 },
 
-         //Funktion zur Suche von Geo Tags nach Suchbegriff.
+         //Funktion zur Suche von Geo Tags nach Suchbegriff Name.
 		 searchName: function(latitude,longitude,name) {
        let searchResults = [];
        if(name !== undefined){
@@ -94,6 +90,7 @@ app.set('view engine', 'ejs');
            }
          })
        }
+       // Wenn der Name undefined ist sucht man nur nach Radius.
        else {
          searchResult=GeoTagModul.searchRadius(latitude, longitude, 0.1);
        }
@@ -116,7 +113,6 @@ app.set('view engine', 'ejs');
 		 }
 	 };
  })();
-// TODO: CODE ERGÄNZEN
 
 /**
  * Route mit Pfad '/' für HTTP 'GET' Requests.
@@ -126,7 +122,7 @@ app.set('view engine', 'ejs');
  *
  * Als Response wird das ejs-Template ohne Geo Tag Objekte gerendert.
  */
-
+// Ist unsere Hauptseite. (gta.ejs) wird gerendert mit leeren Liste, Objekt, ...
 app.get('/', function(req, res) {
     res.render('gta', {
         taglist: [],
@@ -146,10 +142,10 @@ app.get('/', function(req, res) {
  * Als Response wird das ejs-Template mit Geo Tag Objekten gerendert.
  * Die Objekte liegen in einem Standard Radius um die Koordinate (lat, lon).
  */
-
-// TODO: CODE ERGÄNZEN START
+// Pfad zu /tagging. Aufruf nach click on Button Submit
 app.post('/tagging', function(req, res) {
 const tagObj=GeoTagModul.add(req.body.latitude, req.body.longitude, req.body.name, req.body.hashtag);
+// Hier in render() wird Liste erstellt. (immer in render()).
   res.render('gta', {
       taglist: GeoTagModul.searchRadius(req.body.latitude, req.body.longitude, 0.1),
       tagObj: tagObj,
@@ -170,11 +166,13 @@ const tagObj=GeoTagModul.add(req.body.latitude, req.body.longitude, req.body.nam
  * Falls 'term' vorhanden ist, wird nach Suchwort gefiltert.
  */
 
-// TODO: CODE ERGÄNZEN
+//Pfad zu /discovery nach click on button Apply
 app.post('/discovery', function(req, res) {
   const body = req.body;
   const name = body.searchterm;
+  // Suche nach Namen
   result=GeoTagModul.searchName(body.hiddenlatitude, body.hiddenlongitude,name);
+// Schreiben unsere Long, Lat, ... rein damit Seite nicht neue laden muss.
 let tagObj={};
 tagObj.latitude=req.body.hiddenlatitude;
 tagObj.longitude=req.body.hiddenlongitude;

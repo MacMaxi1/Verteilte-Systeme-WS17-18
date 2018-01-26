@@ -104,6 +104,7 @@ var gtaLocator = (function GtaLocator() {
           var lat = document.getElementById('input_lat');
           var hiddenlong = document.getElementById('filter-form-longitude');
           var hiddenlat = document.getElementById('filter-form-latitude');
+// Seite läd nicht neu wenn Lat, Long definiert sind.
           if(long.value === '' || lat.value === ''){
             tryLocate(function (position) {
               long.value = getLongitude(position) ;
